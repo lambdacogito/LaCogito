@@ -1,0 +1,75 @@
+syntax = "proto3";
+package cotigo.api.v1;
+
+////////////// Basics ///////////////
+
+message CogitoMeta {
+    string name = 1;
+    string owner = 2;
+}
+
+message CogitoStatistics {
+    uint64 n_categoies = 1;
+    uint64 n_entries = 2;
+    uint64 n_relations = 3;
+    uint64 n_contexts = 4;
+}
+
+message CogitoStatus {
+    uint64 created_time = 1;
+    uint64 updated_time = 2;
+    uint64 last_read_time = 3;
+}
+
+message CogitoObject {
+    CogitoMeta meta = 1;
+    CogitoStatus status = 2;
+    CogitoStatistics statistics = 3;
+}
+
+////////////// Cogito ///////////////
+
+// Creation
+message CogitoCreationRequest {
+    string name = 1;
+    string owner = 2;
+}
+
+message CogitoCreationResponse {
+    uint32 response_code = 1;
+    string message = 2;
+    CogitoObject cogitobase = 3;
+}
+
+// Fetching
+message CogitoFetchRequest {
+    string name = 1;
+}
+
+message CogitoFetchResponse {
+    uint32 response_code = 1;
+    string message = 2;
+    repeated CogitoObject cogitobases = 3;
+}
+
+// Deletion
+message CogitoDeletionRequest {
+    string name = 1;
+    bool permanent = 2;
+}
+
+message CogitoDeletionResponse {
+    uint32 response_code = 1;
+    string message = 2;
+}
+
+////////////// Category ///////////////
+
+
+////////////// Services ///////////////
+
+service CogitoService {
+    rpc CreateCogito(CogitoCreationRequest) returns(CogitoCreationResponse);
+    rpc FetchCogito(CogitoFetchRequest) returns(CogitoFetchResponse);
+    rpc DeleteCogito(CogitoDeletionRequest) returns(CogitoDeletionResponse);
+}

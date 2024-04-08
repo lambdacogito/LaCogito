@@ -1,2 +1,3 @@
-# LaCogito
-General knowledge computing engine (KCE)
+# Cogito
+
+Modern high performance knowledge base for AGI.
